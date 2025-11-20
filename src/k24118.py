@@ -1,5 +1,7 @@
 from my_module.K21999.lecture05_camera_image_capture import MyVideoCapture
 from src.lecture05_01 import capture_image, change_image, save_image, preview_image
+from numpy import np
+
 import cv2
 
 def lecture05_01():
