@@ -1,7 +1,11 @@
 import sys
+import cv2
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QHBoxLayout
-from src.lecture05_01 import capture_image,change_image,save_image,preview_image
+from PySide6.QtGui import QImage, QPixmap
+from src.lecture05_01 import capture_image,change_image,save_image
+from ui.preview_window import PreviewWindow
+
 
 class Main_window(QWidget):
     def __init__(self):
@@ -41,55 +45,24 @@ class Main_window(QWidget):
 
     def change_image(self):
         if self.captured_image is None:
-            print("先に画像を保存してください")
+            print("先に画像を取得してください")
             return
-        self.changed_image = change_image(self.captured_image)
+        base_img = cv2.imread("images/google.png")
+        if base_img is None:
+            print("google.png が読み込めません")
+            return
+        self.changed_image = change_image(base_img,self.captured_image)
         self.show_preview(self.changed_image)
     
     def save_image(self):
         if self.captured_image is None:
             print("保存するための画像がありません")
             return
-        save_image(self.changed_image)
+        save_image(self.changed_image ,"images/output_image.png")
         print("保存が完了しました。")
 
     def show_preview(self, img):
+        if self.preview_window is None:
+            self.preview_window = PreviewWindow()
         self.preview_window.set_image(img)
         self.preview_window.show()
-
-class PreviewWindow(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("プレビュー")
-        self.resize(600, 400)
-
-        self.label = QLabel()
-        self.label.setScaledContents(True)
-
-        layout = QVBoxLayout()
-        layout.addWidget(self.label)
-        self.setLayout(layout)
-
-    def set_image(self, img):
-        """
-        img は numpy 配列(OpenCV画像)を想定
-        """
-        if img is None:
-            return
-
-        # OpenCV(BGR) → RGB変換
-        rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        h, w, ch = rgb.shape
-        bytes_per_line = ch * w
-
-        qimage = QImage(rgb.data, w, h, bytes_per_line, QImage.Format_RGB888)
-        pixmap = QPixmap.fromImage(qimage)
-
-        self.label.setPixmap(pixmap)
-        self.label.repaint()
-
-
-
-
-
-
