@@ -76,7 +76,7 @@ def preview_image(img: np.ndarray, window_name: str = 'Preview') -> None:
     cv2.destroyWindow(window_name)
 
 
-def lecture05_01():
+def k24118():
     """
     lecture05_01 メイン処理関数。
     - カメラ画像取得
@@ -108,4 +108,4 @@ def lecture05_01():
 
 
 if __name__ == "__main__":
-    lecture05_01()
+    k24118()
