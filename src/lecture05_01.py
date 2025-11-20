@@ -33,7 +33,6 @@ def change_image(base_img: np.ndarray, overlay_img: np.ndarray) -> np.ndarray:
     Args:
         base_img (np.ndarray): 背景画像（置換対象の白色あり）
         overlay_img (np.ndarray): 置換する画像
-
     Returns:
         np.ndarray: 合成後の画像
     """
