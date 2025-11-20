@@ -14,3 +14,10 @@ camera_capture の取得処理
 google.png の白色領域置換（合成処理）
 
 複数の関数化・インターフェース調整
+
+
+関数名
+1. カメラ画像取得...capture_image
+2. 画像合成（白色を置き換える）... change_image
+3. 画像保存 (合成後の画像を指定パスに保存) ... save_image
+4. 画像表示（GUI用） ... preview_image
