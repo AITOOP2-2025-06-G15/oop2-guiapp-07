@@ -66,7 +66,8 @@ class MyVideoCapture:
             # 次の画像を処理するまでに時間間隔（msec）を空ける
             # キーボードの'q'が押されたら終了
             if cv2.waitKey(self.DELAY) & 0xFF == ord('q'):
-                self.captured_img = frame
+    # フレームを左右反転して保存
+                self.captured_img = cv2.flip(frame, flipCode=1)
                 break
 
     def get_img(self) -> np.ndarray | None:
