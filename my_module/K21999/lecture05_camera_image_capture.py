@@ -20,7 +20,7 @@ class MyVideoCapture:
             PCによってはカメラIDが0ではなく1で動作する場合があるため、
             必要に応じて cv2.VideoCapture(1) に変更すること。
         """
-        self.cap: cv2.VideoCapture = cv2.VideoCapture(0)
+        self.cap: cv2.VideoCapture = cv2.VideoCapture(1)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         self.captured_img: np.ndarray | None = None
@@ -66,7 +66,8 @@ class MyVideoCapture:
             # 次の画像を処理するまでに時間間隔（msec）を空ける
             # キーボードの'q'が押されたら終了
             if cv2.waitKey(self.DELAY) & 0xFF == ord('q'):
-                self.captured_img = frame
+    # フレームを左右反転して保存
+                self.captured_img = cv2.flip(frame, flipCode=1)
                 break
 
     def get_img(self) -> np.ndarray | None:

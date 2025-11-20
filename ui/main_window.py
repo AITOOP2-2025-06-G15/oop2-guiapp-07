@@ -1,7 +1,7 @@
 import sys
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QHBoxLayout
-from src.lecture05_01 import Capture_image,Change_image,Save_image,Preview_image
+from src.lecture05_01 import capture_image,change_image,save_image,preview_image
 
 class Main_window(QWidget):
     def __init__(self):
@@ -34,31 +34,31 @@ class Main_window(QWidget):
         self.captured_image = None
         self.changed_image = None
 
-        ##ボタンから関数呼び出し
-        def capture_image(self):
-            self.captured_image = Capture_image()
-            self.show_preview(self.captured_image)
+    ##ボタンから関数呼び出し
+    def capture_image(self):
+        self.captured_image = capture_image()
+        self.show_preview(self.captured_image)
 
-        def change_image(self):
-            if self.captured_image is None:
-                print("先に画像を保存してください")
-                return
-            self.changed_image = Change_image(self.captured_image)
-            self.show_preview(self.changed_image)
-        
-        def save_image(self):
-            if self.captured_image is None:
-                print("保存するための画像がありません")
-                return
-            Save_image(self.changed_image)
-            print("保存が完了しました。")
-
-        def show_preview(self, img):
-            self.preview_window.set_image(img)
-            self.preview_window.show()
-
-
-
+    def change_image(self):
+        if self.captured_image is None:
+            print("先に画像を保存してください")
+            return
+        self.changed_image = change_image(self.captured_image)
+        self.show_preview(self.changed_image)
     
+    def save_image(self):
+        if self.captured_image is None:
+            print("保存するための画像がありません")
+            return
+        save_image(self.changed_image)
+        print("保存が完了しました。")
+
+    def show_preview(self, img):
+        self.preview_window.set_image(img)
+        self.preview_window.show()
+
+
+
+
 
 
